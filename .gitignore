@@ -34,5 +34,7 @@ lerna-debug.log*
 !.vscode/launch.json
 !.vscode/extensions.json
 
-# env
+# 追加
 .env
+docker/db/mysql
+docker/db/sql/init.sql
