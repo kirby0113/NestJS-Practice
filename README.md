@@ -5,5 +5,5 @@
 - TypeScript
 - NestJS
 - Prisma
-- JWT（）
+- JWT（passport）
 - GraphQL(使ってみたいなー)
