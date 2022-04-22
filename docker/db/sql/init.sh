@@ -3,5 +3,5 @@
 mysql=( mysql --protocol=socket -uroot -p"${MYSQL_ROOT_PASSWORD}" )
 
 "${mysql[@]}" <<-EOSQL
-    GRANT ALL ON *.* TO '${MYSQL_USER}'@'%';
+    GRANT ALL PRIVILEGES ON *.* TO '${MYSQL_USER}'@'%' WITH GRANT OPTION;
 EOSQL

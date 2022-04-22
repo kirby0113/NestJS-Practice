@@ -4,6 +4,7 @@ services:
     image: mysql:8.0.28
     container_name: nest-practice
     environment:
+      MYSQL_ROOT_HOST: '%'
       MYSQL_ROOT_PASSWORD: '${MYSQL_ROOT_PASSWORD}'
       MYSQL_USER: '${MYSQL_USER}'
       MYSQL_PASSWORD: '${MYSQL_PASSWORD}'
@@ -11,6 +12,7 @@ services:
       TZ: Asia/Tokyo
     ports:
       - '${MYSQL_PORT}:3306'
+
     volumes:
       # ホスト:コンテナ
       # 初期データを投入するSQLが格納されているdir
@@ -19,3 +21,5 @@ services:
       - ./docker/db/mysql:/var/lib/mysql
       # 設定ファイル
       - ./docker/db/my.cnf:/etc/mysql/my.cnf
+
+      - ./mysql-files:/var/lib/mysql-files
