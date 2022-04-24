@@ -5,6 +5,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PrismaService } from './prisma.service';
 import { UserResolver } from './users/users.resolver';
+import { AuthModule } from './auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -12,6 +14,11 @@ import { UserResolver } from './users/users.resolver';
       driver: ApolloDriver,
       autoSchemaFile: 'src/schema.gql',
     }),
+    ConfigModule.forRoot({
+      // envファイルを組み込むために使用
+      isGlobal: true,
+    }),
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService, UserResolver],
