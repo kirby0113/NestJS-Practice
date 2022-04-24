@@ -21,11 +21,11 @@ export class AuthService {
   //ユーザー認証
   async validateUser(
     name: User['name'],
-    pass: User['password'],
+    password: User['password'],
   ): Promise<PasswordOmitUser | null> {
     const user = await this.userResolver.user(name);
 
-    if (user && bcrypt.compareSync(pass, user.password)) {
+    if (user && bcrypt.compareSync(password, user.password)) {
       const { password, ...result } = user; //パスワード情報は捨てる
 
       return result;
