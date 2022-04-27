@@ -8,6 +8,7 @@ import { UserResolver } from './users/users.resolver';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { UsersController } from './users/users.controller';
+import { AuthResolver } from './auth/auth.resolver';
 
 @Module({
   imports: [
@@ -21,7 +22,7 @@ import { UsersController } from './users/users.controller';
     }),
     AuthModule,
   ],
-  controllers: [AppController, UsersController],
-  providers: [AppService, PrismaService, UserResolver],
+  controllers: [AppController],
+  providers: [AppService, PrismaService, UserResolver, AuthResolver],
 })
 export class AppModule {}
