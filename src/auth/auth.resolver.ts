@@ -15,6 +15,6 @@ export class AuthResolver {
     @Args('loginUserInput') loginUserInput: LoginUserInput,
     @Context() context,
   ) {
-    return { test: 'test' };
+    return this.authService.login(context.user);
   }
 }
