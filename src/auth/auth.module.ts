@@ -11,6 +11,7 @@ import { LocalStrategy } from './local.strategy';
 import { PrismaService } from 'src/prisma.service';
 import { UserResolver } from 'src/users/users.resolver';
 import { AuthResolver } from './auth.resolver';
+import { UserService } from 'src/users/users.service';
 
 @Module({
   imports: [
@@ -39,6 +40,7 @@ import { AuthResolver } from './auth.resolver';
     PrismaService,
     AuthResolver,
     UserResolver,
+    UserService,
   ],
   exports: [AuthService],
 })

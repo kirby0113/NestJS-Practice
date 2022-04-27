@@ -7,12 +7,13 @@ import { PrismaService } from './prisma.service';
 import { UserResolver } from './users/users.resolver';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
-import { UsersController } from './users/users.controller';
 import { AuthResolver } from './auth/auth.resolver';
+import { UserModule } from './users/users.module';
 
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
+      context: ({ req }) => ({ req }),
       driver: ApolloDriver,
       autoSchemaFile: 'src/schema.gql',
     }),
@@ -21,8 +22,9 @@ import { AuthResolver } from './auth/auth.resolver';
       isGlobal: true,
     }),
     AuthModule,
+    UserModule,
   ],
   controllers: [AppController],
-  providers: [AppService, PrismaService, UserResolver, AuthResolver],
+  providers: [AppService, PrismaService, AuthResolver],
 })
 export class AppModule {}
