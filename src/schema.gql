@@ -10,17 +10,17 @@ type User {
 }
 
 type LoginResponse {
-  test: String!
+  access_token: String!
 }
 
 type Query {
+  user: User!
   users: [User!]!
-  user(name: String!): User!
 }
 
 type Mutation {
-  createUser(name: String!, email: String!, password: String!): User!
   login(loginUserInput: LoginUserInput!): LoginResponse!
+  createUser(name: String!, email: String!, password: String!): User!
 }
 
 input LoginUserInput {
