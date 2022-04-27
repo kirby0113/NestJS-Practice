@@ -4,5 +4,5 @@ import { User } from 'src/users/models/user.model';
 @ObjectType()
 export class LoginResponse {
   @Field()
-  test: string;
+  access_token: string;
 }

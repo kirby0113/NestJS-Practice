@@ -8,8 +8,7 @@ import { PrismaService } from 'src/prisma.service';
 type PasswordOmitUser = Omit<User, 'password'>;
 
 export interface JwtPayload {
-  userId: User['id'];
-  username: User['name'];
+  id: number;
 }
 
 @Injectable()
@@ -33,11 +32,10 @@ export class AuthService {
 
   //jwt tokenを返す
   async login(user: PasswordOmitUser) {
-    const payload = { email: user.email, sub: user.id };
+    const payload = { email: user.email, id: user.id };
 
     return {
       access_token: this.jwtService.sign(payload),
-      user: user,
     };
   }
 }
