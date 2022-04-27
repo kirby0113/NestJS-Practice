@@ -2,20 +2,28 @@ import { AuthGuard } from '@nestjs/passport';
 import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
 import { User } from './models/user.model';
 import { AuthService } from '../auth/auth.service';
-
-type PasswordOmitUser = Omit<User, 'password'>;
+import { UserResolver } from './users.resolver';
+import { GqlAuthGuard } from 'src/auth/guards/gql-auth.guard';
+import { Args, Context } from '@nestjs/graphql';
+import { LoginUserInput } from 'src/auth/dto/login-user.input';
 
 @Controller()
 export class UsersController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly userResolver: UserResolver,
+  ) {}
 
-  @UseGuards(AuthGuard('local')) // passport-local戦略を付与する
+  @UseGuards(GqlAuthGuard) // passport-local戦略を付与する
   @Post('login')
-  async login(@Request() req: { user: PasswordOmitUser }) {
+  async login(
+    @Args('loginUserInput') loginUserInput: LoginUserInput,
+    @Context() context,
+  ) {
     // LocalStrategy.validate()で認証して返した値がreq.userに入ってる
-
+    const user = context.user;
     // JwtToken を返す
-    return this.authService.login(req.user);
+    return this.authService.login(context.user);
   }
 
   /**
@@ -23,10 +31,15 @@ export class UsersController {
    */
   @UseGuards(AuthGuard('jwt')) // passport-jwt戦略を付与する
   @Get('user')
-  getProfile(@Request() req: { user: PasswordOmitUser }) {
+  getProfile(@Request() req: { user: User }) {
     // JwtStrategy.validate()で認証して返した値がreq.userに入ってる
 
     // 認証に成功したユーザーの情報を返す
     return req.user;
+  }
+
+  @Get('users')
+  getUsers() {
+    return this.userResolver.users();
   }
 }

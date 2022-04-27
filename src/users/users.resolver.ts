@@ -12,8 +12,8 @@ export class UserResolver {
   }
 
   @Query(() => User)
-  async user(@Args('name') name: string) {
-    return this.prisma.user.findUnique({ where: { name: name } });
+  async user(@Args('name') email: string) {
+    return this.prisma.user.findUnique({ where: { email: email } });
   }
 
   @Mutation(() => User)
