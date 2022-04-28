@@ -6,13 +6,24 @@ type User {
   id: ID!
   name: String!
   email: String!
-  password: String!
+  password: String
+}
+
+type LoginResponse {
+  access_token: String!
 }
 
 type Query {
+  user: User!
   users: [User!]!
 }
 
 type Mutation {
+  login(loginUserInput: LoginUserInput!): LoginResponse!
   createUser(name: String!, email: String!, password: String!): User!
+}
+
+input LoginUserInput {
+  email: String!
+  password: String!
 }
