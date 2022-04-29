@@ -11,8 +11,42 @@ datasource db {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
+  id       Int     @id @default(autoincrement())
   name     String
-  email    String @unique
+  email    String  @unique
   password String
+  Tag      Tag[]
+  Diary    Diary[]
+}
+
+model Tag {
+  id               Int                @id @default(autoincrement())
+  name             String
+  user             User               @relation(fields: [user_id], references: [id])
+  user_id          Int
+  DiaryTagRelation DiaryTagRelation[]
+
+  @@map("diaries")
+}
+
+model Diary {
+  id               Int                @id @default(autoincrement())
+  title            String
+  detail           String
+  user             User               @relation(fields: [user_id], references: [id])
+  user_id          Int
+  created_at       DateTime           @default(now())
+  DiaryTagRelation DiaryTagRelation[]
+
+  @@map("tags")
+}
+
+model DiaryTagRelation {
+  diary    Diary @relation(fields: [diary_id], references: [id])
+  diary_id Int   @map("diary_id")
+  tag      Tag   @relation(fields: [tag_id], references: [id])
+  tag_id   Int   @map("tag_id")
+
+  @@id([diary_id, tag_id])
+  @@map("diary_tag")
 }
