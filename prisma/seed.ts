@@ -1,4 +1,4 @@
-import { PrismaClient, User, Tag } from '@prisma/client';
+import { PrismaClient, User, Tag, Diary } from '@prisma/client';
 const prisma = new PrismaClient();
 
 // モデル投入用のデータ定義
@@ -29,6 +29,30 @@ const tag_data: Tag[] = [
   { id: 3, name: '趣味', user_id: 3 },
 ];
 
+const diary_data: Diary[] = [
+  {
+    id: 1,
+    title: '今日の振り返り',
+    detail: '今日はprismaの勉強',
+    user_id: 1,
+    created_at: new Date(),
+  },
+  {
+    id: 2,
+    title: 'お仕事めんどくさい',
+    detail: '残業なんてさせんじゃないよーーー',
+    user_id: 2,
+    created_at: new Date(),
+  },
+  {
+    id: 3,
+    title: '曲作った',
+    detail: 'トランス系統の曲作ったよ',
+    user_id: 3,
+    created_at: new Date(),
+  },
+];
+
 const seedingUser = async () => {
   const users = [];
   for (const user of user_data) {
@@ -51,6 +75,17 @@ const seedingTag = async () => {
   return await prisma.$transaction(tags);
 };
 
+const seedingDiary = async () => {
+  const diaries = [];
+  for (const diary of diary_data) {
+    const create_diaries = prisma.diary.create({
+      data: diary,
+    });
+    diaries.push(create_diaries);
+  }
+  return await prisma.$transaction(diaries);
+};
+
 const main = async () => {
   console.log(`Start seeding ...`);
 
@@ -61,6 +96,10 @@ const main = async () => {
   console.log('Seeding Tag...');
   await seedingTag();
   console.log('Seeding Tag finished.');
+
+  console.log('Seeding Diary...');
+  await seedingDiary();
+  console.log('Seeding Diary finished.');
 
   console.log(`Seeding finished.`);
 };
