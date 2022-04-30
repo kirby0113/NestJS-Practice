@@ -13,9 +13,17 @@ type LoginResponse {
   access_token: String!
 }
 
+type Tag {
+  id: ID!
+  name: String!
+  user_id: Float!
+}
+
 type Query {
   user: User!
   users: [User!]!
+  tags: [Tag!]!
+  test: Float!
 }
 
 type Mutation {

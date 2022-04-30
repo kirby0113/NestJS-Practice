@@ -9,6 +9,7 @@ import { User } from 'src/users/models/user.model';
 
 // JwtについているPayload情報の型
 interface JWTPayload {
+  email: string;
   id: number;
 }
 
@@ -31,6 +32,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   // ここでPayloadを使ったバリデーション処理を実行できる
   // Payloadは、AuthService.login()で定義した値
   async validate(payload: JWTPayload): Promise<JwtPayload> {
-    return { id: payload.id };
+    return { email: payload.email, id: payload.id };
   }
 }
