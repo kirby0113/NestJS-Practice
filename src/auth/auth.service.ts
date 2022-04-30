@@ -8,6 +8,7 @@ import { PrismaService } from 'src/prisma.service';
 type PasswordOmitUser = Omit<User, 'password'>;
 
 export interface JwtPayload {
+  email: string;
   id: number;
 }
 
