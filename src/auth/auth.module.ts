@@ -12,6 +12,7 @@ import { PrismaService } from 'src/prisma.service';
 import { UserResolver } from 'src/users/users.resolver';
 import { AuthResolver } from './auth.resolver';
 import { UserService } from 'src/users/users.service';
+import { TagResolver } from 'src/tags/tags.resolver';
 
 @Module({
   imports: [
@@ -26,7 +27,7 @@ import { UserService } from 'src/users/users.service';
             // 有効期間を設定
             // 指定する値は以下を参照
             // https://github.com/vercel/ms
-            expiresIn: '1200s',
+            expiresIn: '1200000s',
           },
         };
       },
@@ -41,6 +42,7 @@ import { UserService } from 'src/users/users.service';
     AuthResolver,
     UserResolver,
     UserService,
+    TagResolver,
   ],
   exports: [AuthService],
 })
