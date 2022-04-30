@@ -9,6 +9,7 @@ import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { AuthResolver } from './auth/auth.resolver';
 import { UserModule } from './users/users.module';
+import { TagModule } from './tags/tags.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { UserModule } from './users/users.module';
     }),
     AuthModule,
     UserModule,
+    TagModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService, AuthResolver],
