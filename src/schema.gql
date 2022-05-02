@@ -23,12 +23,12 @@ type Query {
   user: User!
   users: [User!]!
   tags: [Tag!]!
-  test: Float!
 }
 
 type Mutation {
   login(loginUserInput: LoginUserInput!): LoginResponse!
   createUser(name: String!, email: String!, password: String!): User!
+  createTag(name: String!): Tag!
 }
 
 input LoginUserInput {
