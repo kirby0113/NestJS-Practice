@@ -27,10 +27,10 @@ export class TagResolver {
         'タグ名を入力してください',
         HttpStatus.BAD_REQUEST,
       );
-    const registeredTag = this.prisma.tag.findFirst({
+    const registeredTag = await this.prisma.tag.findFirst({
       where: { name: trim_name },
     });
-    if (registeredTag !== undefined)
+    if (registeredTag !== null)
       throw new HttpException('そのタグは登録済みです', HttpStatus.CONFLICT);
     return this.prisma.tag.create({
       data: { name: trim_name, user_id: user.id },
