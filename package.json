@@ -27,7 +27,11 @@
     "prisma:migrate-dev": "dotenv -e ./.env prisma migrate dev",
     "prisma:reset": "dotenv -e ./env prisma migrate reset",
     "prisma:studio": "dotenv -e ./env prisma studio",
-    "prisma:seeding": "dotenv -e ./env prisma db seed"
+    "prisma:seeding": "dotenv -e ./env prisma db seed",
+    "heroku:deploy": "heroku container:push web && heroku container release web",
+    "heroku:push":"heroku container:push web",
+    "heroku:release":"heroku container:release web",
+    "heroku:log":"heroku logs --tail"
   },
   "dependencies": {
     "@nestjs/apollo": "^10.0.9",
