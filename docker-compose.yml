@@ -1,8 +1,23 @@
 version: '3.7'
 services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nest-practice
+    tty: true
+    stdin_open: true
+    volumes:
+      - .:/app
+      - /app/node_modules
+    depends_on:
+      - db
+    ports:
+      - '3000:3000'
+
   db:
     image: mysql:8.0.28
-    container_name: nest-practice
+    container_name: nest-practice-db
     environment:
       MYSQL_ROOT_HOST: '%'
       MYSQL_ROOT_PASSWORD: '${MYSQL_ROOT_PASSWORD}'
