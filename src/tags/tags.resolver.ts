@@ -6,10 +6,11 @@ import { GqlAuthGuard } from 'src/auth/guards/gql-auth.guard';
 import { CurrentUser, JwtAuthGuard } from 'src/auth/guards/jwt-guard';
 import { PrismaService } from 'src/prisma.service';
 import { Tag } from './models/tag.model';
+import { TagService } from './tags.service';
 
 @Resolver(() => Tag)
 export class TagResolver {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService, private tagService: TagService) {}
 
   @Query(() => [Tag])
   @UseGuards(JwtAuthGuard)
@@ -17,9 +18,9 @@ export class TagResolver {
     return this.prisma.tag.findMany({ where: { user_id: user.id } });
   }
 
-  @Query(() => Number)
+  @Mutation(() => Tag)
   @UseGuards(JwtAuthGuard)
-  async test(@Context() context) {
-    return context.id;
+  async createTag(@Args('name') name: string, @CurrentUser() user: User) {
+    return this.tagService.createTag({ name: name, user_id: user.id });
   }
 }
