@@ -5,7 +5,7 @@ import { TagResolver } from './tags.resolver';
 import { TagService } from './tags.service';
 
 @Module({
-  imports: [AuthModule, TagService, TagResolver],
-  providers: [PrismaService],
+  imports: [AuthModule],
+  providers: [PrismaService, TagService, TagResolver],
 })
 export class TagModule {}

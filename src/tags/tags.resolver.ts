@@ -1,5 +1,5 @@
 import { User } from '.prisma/client';
-import { UseGuards, Request } from '@nestjs/common';
+import { UseGuards, Request, HttpException, HttpStatus } from '@nestjs/common';
 import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { UserAuth } from 'src/auth/dto/user-auth';
 import { GqlAuthGuard } from 'src/auth/guards/gql-auth.guard';
@@ -21,6 +21,9 @@ export class TagResolver {
   @Mutation(() => Tag)
   @UseGuards(JwtAuthGuard)
   async createTag(@Args('name') name: string, @CurrentUser() user: User) {
-    return this.tagService.createTag({ name: name, user_id: user.id });
+    const registeredTag = this.prisma.tag.findFirst({ where: { name: name } });
+    if (registeredTag !== undefined)
+      throw new HttpException('そのタグは登録済みです', HttpStatus.BAD_REQUEST);
+    return this.prisma.tag.create({ data: { name: name, user_id: user.id } });
   }
 }
