@@ -21,9 +21,19 @@ export class TagResolver {
   @Mutation(() => Tag)
   @UseGuards(JwtAuthGuard)
   async createTag(@Args('name') name: string, @CurrentUser() user: User) {
-    const registeredTag = this.prisma.tag.findFirst({ where: { name: name } });
+    const trim_name = name.trim();
+    if (trim_name === '')
+      throw new HttpException(
+        'タグ名を入力してください',
+        HttpStatus.BAD_REQUEST,
+      );
+    const registeredTag = this.prisma.tag.findFirst({
+      where: { name: trim_name },
+    });
     if (registeredTag !== undefined)
-      throw new HttpException('そのタグは登録済みです', HttpStatus.BAD_REQUEST);
-    return this.prisma.tag.create({ data: { name: name, user_id: user.id } });
+      throw new HttpException('そのタグは登録済みです', HttpStatus.CONFLICT);
+    return this.prisma.tag.create({
+      data: { name: trim_name, user_id: user.id },
+    });
   }
 }
