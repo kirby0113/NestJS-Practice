@@ -9,3 +9,11 @@ query{
     }
 }
 ```
+
+##　タグの新規登録
+mutation{
+createTag(name:"登録したいタグ名"){
+    id,
+    name,
+    user_id,
+}
