@@ -7,3 +7,9 @@ export class Tag {
   name: string;
   user_id: number;
 }
+
+@ObjectType()
+export class CreateTag {
+  name: string;
+  user_id: number;
+}
