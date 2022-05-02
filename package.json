@@ -31,7 +31,8 @@
     "heroku:deploy": "heroku container:push web && heroku container release web",
     "heroku:push":"heroku container:push web",
     "heroku:release":"heroku container:release web",
-    "heroku:log":"heroku logs --tail"
+    "heroku:log":"heroku logs --tail",
+    "build:deploy":"npm run prebuild && npm run build && npm run start:prod"
   },
   "dependencies": {
     "@nestjs/apollo": "^10.0.9",
