@@ -23,6 +23,19 @@ type MessageResponse {
   message: String!
 }
 
+type Diary {
+  id: ID!
+  title: String!
+  detail: String!
+  created_at: DateTime!
+  tags: [Tag!]!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type Query {
   user: User!
   users: [User!]!
@@ -35,9 +48,22 @@ type Mutation {
   createTag(name: String!): Tag!
   updateTag(id: Float!, name: String!): Tag!
   deleteTag(id: Float!): MessageResponse!
+  createDiary(createDiaryInput: CreateDiaryInput!): Diary!
 }
 
 input LoginUserInput {
   email: String!
   password: String!
+}
+
+input CreateDiaryInput {
+  title: ID!
+  tags: [InputTag!]!
+  detail: String!
+}
+
+input InputTag {
+  id: Float!
+  name: String
+  user_id: Float
 }
