@@ -70,9 +70,14 @@ export class TagResolver {
     if (registeredTag === null)
       throw new HttpException('そのタグは存在しません', HttpStatus.NOT_FOUND);
 
-    const relation = this.prisma.diaryTagRelation.deleteMany({
+    const relation = this.prisma.tag.update({
       where: {
-        tag_id: id,
+        id: id,
+      },
+      data: {
+        diaries: {
+          set: [],
+        },
       },
     });
 

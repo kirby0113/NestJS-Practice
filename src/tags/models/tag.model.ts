@@ -1,4 +1,4 @@
-import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { ArgsType, Field, ID, InputType, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
 export class Tag {
@@ -6,6 +6,14 @@ export class Tag {
   id: number;
   name: string;
   user_id: number;
+}
+
+@InputType()
+export class InputTag {
+  @Field()
+  id: number;
+  name?: string;
+  user_id?: number;
 }
 
 @ObjectType()
