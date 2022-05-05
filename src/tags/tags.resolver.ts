@@ -5,6 +5,7 @@ import { CurrentUser, JwtAuthGuard } from 'src/auth/guards/jwt-guard';
 import { PrismaService } from 'src/prisma.service';
 import { Tag } from './models/tag.model';
 import { TagService } from './tags.service';
+import { MessageResponse } from 'src/models/response.model';
 
 @Resolver(() => Tag)
 export class TagResolver {
@@ -58,5 +59,29 @@ export class TagResolver {
       where: { id: id },
       data: { name: trim_name },
     });
+  }
+
+  @Mutation(() => MessageResponse)
+  @UseGuards(JwtAuthGuard)
+  async deleteTag(@Args('id') id: number, @CurrentUser() user: User) {
+    const registeredTag = await this.prisma.tag.findFirst({
+      where: { id: id },
+    });
+    if (registeredTag === null)
+      throw new HttpException('そのタグは存在しません', HttpStatus.NOT_FOUND);
+
+    const relation = this.prisma.diaryTagRelation.deleteMany({
+      where: {
+        tag_id: id,
+      },
+    });
+
+    const tag = this.prisma.tag.delete({
+      where: { id: id },
+    });
+
+    await this.prisma.$transaction([relation, tag]);
+
+    return { message: '削除に成功しました！' };
   }
 }
