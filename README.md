@@ -39,3 +39,15 @@ npm run prisma:migrate-dev
 ```
 npm run start:dev
 ```
+
+## その他コマンド
+
+- prismaのDBなどのリセット
+```
+npm run prisma:reset
+```
+
+- prismaのseeding
+```
+npm run prisma:seeding
+```
