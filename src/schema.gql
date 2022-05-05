@@ -29,6 +29,7 @@ type Mutation {
   login(loginUserInput: LoginUserInput!): LoginResponse!
   createUser(name: String!, email: String!, password: String!): User!
   createTag(name: String!): Tag!
+  updateTag(id: Float!, name: String!): Tag!
 }
 
 input LoginUserInput {
