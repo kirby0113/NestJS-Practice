@@ -20,3 +20,13 @@ createTag(name:"登録したいタグ名"){
     user_id,
 }
 ```
+
+## タグの更新
+```
+mutation{
+createTag(id:更新したいタグのid,name:"新しいタグ名"){
+    id,
+    name,
+    user_id,
+}
+```
