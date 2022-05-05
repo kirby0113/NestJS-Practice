@@ -14,6 +14,7 @@ import { AuthResolver } from './auth.resolver';
 import { UserService } from 'src/users/users.service';
 import { TagResolver } from 'src/tags/tags.resolver';
 import { TagService } from 'src/tags/tags.service';
+import { DiaryResolver } from 'src/diaries/diaries.resolver';
 
 @Module({
   imports: [
@@ -45,6 +46,7 @@ import { TagService } from 'src/tags/tags.service';
     UserService,
     TagResolver,
     TagService,
+    DiaryResolver,
   ],
   exports: [AuthService],
 })
