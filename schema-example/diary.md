@@ -26,3 +26,20 @@ mutation{
   }
 }
 ```
+
+## 日記一覧取得処理
+```
+query{
+  getDiaries(getDiariesInput:{tag_id:登録されているタグIDを指定(入力なしもOK),order_asc:true(trueの場合、作成した日付の昇順で取得)}){
+    id,
+    title,
+    detail,
+    created_at,
+    tags{
+      id,
+      name,
+      user_id,
+    }
+  }
+}
+```
