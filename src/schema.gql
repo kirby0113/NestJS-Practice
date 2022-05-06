@@ -40,6 +40,12 @@ type Query {
   user: User!
   users: [User!]!
   tags: [Tag!]!
+  getDiaries(getDiariesInput: GetDiariesInput!): [Diary!]!
+}
+
+input GetDiariesInput {
+  tag_id: Float
+  order_asc: Boolean
 }
 
 type Mutation {
