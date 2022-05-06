@@ -1,6 +1,8 @@
 
 # NestJS-Practice
 
+# 開発者向け
+
 ## 使うもの
 - TypeScript
 - NestJS
@@ -51,3 +53,8 @@ npm run prisma:reset
 ```
 npm run prisma:seeding
 ```
+
+# API利用者向け
+
+## クエリの利用方法について
+[こちらのmdファイル群を参照してください](https://github.com/kirby0113/NestJS-Practice/tree/main/schema-example)
