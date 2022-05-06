@@ -2,6 +2,7 @@ import { User } from '.prisma/client';
 import { UseGuards, Request, HttpException, HttpStatus } from '@nestjs/common';
 import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { CreateDiaryInput } from 'src/auth/dto/create-diary.input';
+import { GetDiariesInput } from 'src/auth/dto/get-diaries.input';
 import { CurrentUser, JwtAuthGuard } from 'src/auth/guards/jwt-guard';
 import { PrismaService } from 'src/prisma.service';
 import { Diary } from './models/diary.model';
@@ -35,6 +36,46 @@ export class DiaryResolver {
             return { id: tag.id };
           }),
         },
+      },
+      include: {
+        tags: true,
+      },
+    });
+  }
+
+  @Query(() => [Diary])
+  @UseGuards(JwtAuthGuard)
+  async getDiaries(
+    @Args('getDiariesInput') input: GetDiariesInput,
+    @CurrentUser() user: User,
+  ) {
+    const order = input.order_asc ? input.order_asc : false;
+
+    if (input.tag_id === undefined) {
+      return this.prisma.diary.findMany({
+        where: {
+          user_id: user.id,
+        },
+        orderBy: {
+          created_at: order ? 'asc' : 'desc',
+        },
+        include: {
+          tags: true,
+        },
+      });
+    }
+
+    return this.prisma.diary.findMany({
+      where: {
+        user_id: user.id,
+        tags: {
+          some: {
+            id: input.tag_id,
+          },
+        },
+      },
+      orderBy: {
+        created_at: order ? 'asc' : 'desc',
       },
       include: {
         tags: true,
