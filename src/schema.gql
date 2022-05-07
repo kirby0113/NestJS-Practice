@@ -41,6 +41,7 @@ type Query {
   users: [User!]!
   tags: [Tag!]!
   getDiaries(getDiariesInput: GetDiariesInput!): [Diary!]!
+  getDiary(id: Float!): Diary!
 }
 
 input GetDiariesInput {

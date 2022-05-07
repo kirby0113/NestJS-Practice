@@ -82,4 +82,13 @@ export class DiaryResolver {
       },
     });
   }
+
+  @Query(() => Diary)
+  @UseGuards(JwtAuthGuard)
+  async getDiary(@Args('id') id: number, @CurrentUser() user: User) {
+    const diary = await this.prisma.diary.findUnique({ where: { id: id } });
+    if (diary === null)
+      throw new HttpException('その日記は存在しません', HttpStatus.NOT_FOUND);
+    return diary;
+  }
 }
