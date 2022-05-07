@@ -60,3 +60,27 @@ query{
   }
 }
 ```
+
+## 日記更新処理
+```
+mutation{
+  updateDiary(updateDiaryInput:{
+    id:1,
+    title:"更新後のタイトル",
+    detail:"更新後の日記の内容",
+    tags:[{
+      id:1, //タグのidは必須にしており、基本的に取得したtagの情報をそのまま入れても問題ない状態にしてます。
+    }],
+  }){
+  id,
+  detail,
+  title,
+  created_at,
+  tags{
+    id,
+    name,
+    user_id,
+  }
+}
+}
+```
