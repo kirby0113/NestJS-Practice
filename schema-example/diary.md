@@ -43,3 +43,20 @@ query{
   }
 }
 ```
+
+## 日記単一取得処理
+```
+query{
+  getDiary(id:取得したい日記のid){
+      id,
+      title,
+      detail,
+      created_at,
+      tags{
+        id,
+        name,
+        user_id,
+      }
+  }
+}
+```
