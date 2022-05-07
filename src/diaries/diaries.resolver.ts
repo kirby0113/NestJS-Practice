@@ -1,8 +1,10 @@
 import { User } from '.prisma/client';
 import { UseGuards, Request, HttpException, HttpStatus } from '@nestjs/common';
 import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { title } from 'process';
 import { CreateDiaryInput } from 'src/auth/dto/create-diary.input';
 import { GetDiariesInput } from 'src/auth/dto/get-diaries.input';
+import { UpdateDiaryInput } from 'src/auth/dto/update-diary.input';
 import { CurrentUser, JwtAuthGuard } from 'src/auth/guards/jwt-guard';
 import { PrismaService } from 'src/prisma.service';
 import { Diary } from './models/diary.model';
@@ -90,5 +92,39 @@ export class DiaryResolver {
     if (diary === null)
       throw new HttpException('その日記は存在しません', HttpStatus.NOT_FOUND);
     return diary;
+  }
+
+  @Mutation(() => Diary)
+  @UseGuards(JwtAuthGuard)
+  async updateDiary(
+    @Args('updateDiaryInput') input: UpdateDiaryInput,
+    @CurrentUser() user: User,
+  ) {
+    const diary = await this.prisma.diary.findFirst({
+      where: { id: input.id, user_id: user.id },
+    });
+    if (diary === null)
+      throw new HttpException(
+        'その日記は存在しないか、編集権限がありません。',
+        HttpStatus.NOT_FOUND,
+      );
+    return this.prisma.diary.update({
+      where: {
+        id: input.id,
+      },
+      data: {
+        title: input.title,
+        detail: input.detail,
+        tags: {
+          set: [],
+          connect: input.tags.map((tag) => {
+            return { id: tag.id };
+          }),
+        },
+      },
+      include: {
+        tags: true,
+      },
+    });
   }
 }
