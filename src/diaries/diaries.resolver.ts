@@ -6,6 +6,7 @@ import { CreateDiaryInput } from 'src/auth/dto/create-diary.input';
 import { GetDiariesInput } from 'src/auth/dto/get-diaries.input';
 import { UpdateDiaryInput } from 'src/auth/dto/update-diary.input';
 import { CurrentUser, JwtAuthGuard } from 'src/auth/guards/jwt-guard';
+import { MessageResponse } from 'src/models/response.model';
 import { PrismaService } from 'src/prisma.service';
 import { Diary } from './models/diary.model';
 
@@ -126,5 +127,32 @@ export class DiaryResolver {
         tags: true,
       },
     });
+  }
+
+  @Mutation(() => MessageResponse)
+  @UseGuards(JwtAuthGuard)
+  async deleteDiary(@Args('id') id: number, @CurrentUser() user: User) {
+    const diary = await this.prisma.diary.findFirst({
+      where: { id: id, user_id: user.id },
+      include: {
+        tags: true,
+      },
+    });
+    if (diary === null)
+      throw new HttpException(
+        'その日記は既に存在しないか、削除権限がありません。',
+        HttpStatus.NOT_FOUND,
+      );
+    const delete_relation = diary.tags.map((tag) => {
+      return this.prisma.tag.update({
+        where: { id: tag.id },
+        data: { diaries: { disconnect: [{ id: id }] } },
+      });
+    });
+
+    const delete_diary = this.prisma.diary.delete({ where: { id: id } });
+
+    await this.prisma.$transaction([...delete_relation, delete_diary]);
+    return { message: '日記の削除に成功しました！' };
   }
 }

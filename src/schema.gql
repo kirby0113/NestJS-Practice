@@ -57,6 +57,7 @@ type Mutation {
   deleteTag(id: Float!): MessageResponse!
   createDiary(createDiaryInput: CreateDiaryInput!): Diary!
   updateDiary(updateDiaryInput: UpdateDiaryInput!): Diary!
+  deleteDiary(id: Float!): MessageResponse!
 }
 
 input LoginUserInput {
