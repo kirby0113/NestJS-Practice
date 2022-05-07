@@ -84,3 +84,11 @@ mutation{
 }
 }
 ```
+## 日記削除処理
+```
+mutation{
+  deleteDiary(id:削除したい日記のid){
+    message
+  }
+}
+```
