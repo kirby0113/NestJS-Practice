@@ -51,6 +51,7 @@ input GetDiariesInput {
 
 type Mutation {
   login(loginUserInput: LoginUserInput!): LoginResponse!
+  register(name: String!, email: String!, password: String!): LoginResponse!
   createUser(name: String!, email: String!, password: String!): User!
   createTag(name: String!): Tag!
   updateTag(id: Float!, name: String!): Tag!
