@@ -13,6 +13,19 @@ mutation {
 }
 ```
 
+## 新規登録
+```
+mutation {
+  register(
+    email:"登録したいメールアドレス",
+    password:"パスワード",
+    name:"ユーザー名"
+  ) {
+    access_token
+  }
+}
+```
+
 ## トークンの header
 
 ```
