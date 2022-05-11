@@ -13,5 +13,9 @@ COPY package-lock.json .
 COPY tsconfig.build.json ./
 COPY tsconfig.json ./
 RUN npm ci
-RUN ls ./ -l
+RUN npm run build
+RUN ls ./usr -l
 
+EXPOSE 3000
+
+ENTRYPOINT [ "npm", "run", "start:prod" ]
