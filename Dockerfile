@@ -12,6 +12,7 @@ COPY . .
 RUN npm ci
 RUN npm run build
 RUN ls -l
+RUM npm run db:start
 
 EXPOSE 3000
 
