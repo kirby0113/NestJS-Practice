@@ -2,7 +2,7 @@ import { UseGuards } from '@nestjs/common';
 import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { UserAuth } from 'src/auth/dto/user-auth';
 import { GqlAuthGuard } from 'src/auth/guards/gql-auth.guard';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-guard';
+import { CurrentUser, JwtAuthGuard } from 'src/auth/guards/jwt-guard';
 import { PrismaService } from 'src/prisma.service';
 import { User } from './models/user.model';
 import { UserService } from './users.service';
@@ -16,8 +16,8 @@ export class UserResolver {
 
   @Query(() => User)
   @UseGuards(JwtAuthGuard)
-  async user(@Context() context) {
-    return this.prisma.user.findFirst({ where: { id: context.id } });
+  async user(@CurrentUser() user: User) {
+    return this.prisma.user.findFirst({ where: { id: user.id } });
   }
 
   @Query(() => [User])

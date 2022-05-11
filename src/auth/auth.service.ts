@@ -23,11 +23,13 @@ export class AuthService {
   //ユーザー認証
   async validateUser(email: string, password: string): Promise<User | null> {
     const user = await this.prisma.user.findUnique({ where: { email: email } });
-    if (user) {
-      const { password, ...result } = user; //パスワード情報は捨てる
+    if (user && bcrypt.compareSync(password, user.password)) {
+      const { password, ...result } = user; // パスワード情報を外部に出さないようにする
 
       return result;
     }
+
+    return null;
     return null;
   }
 

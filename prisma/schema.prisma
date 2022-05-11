@@ -20,33 +20,20 @@ model User {
 }
 
 model Tag {
-  id                 Int                @id @default(autoincrement())
-  name               String
-  user               User               @relation(fields: [user_id], references: [id])
-  user_id            Int
-  diary_tag_relation DiaryTagRelation[]
-
-  @@map("diaries")
+  id      Int     @id @default(autoincrement())
+  name    String
+  user    User    @relation(fields: [user_id], references: [id])
+  user_id Int
+  diaries Diary[]
 }
 
 model Diary {
-  id                 Int                @id @default(autoincrement())
-  title              String
-  detail             String
-  user               User               @relation(fields: [user_id], references: [id])
-  user_id            Int
-  created_at         DateTime           @default(now())
-  diary_tag_relation DiaryTagRelation[]
+  id         Int      @id @default(autoincrement())
+  title      String
+  detail     String
+  user       User     @relation(fields: [user_id], references: [id])
+  user_id    Int
+  created_at DateTime @default(now())
+  tags       Tag[]
 
-  @@map("tags")
-}
-
-model DiaryTagRelation {
-  diary    Diary @relation(fields: [diary_id], references: [id])
-  diary_id Int   @map("diary_id")
-  tag      Tag   @relation(fields: [tag_id], references: [id])
-  tag_id   Int   @map("tag_id")
-
-  @@id([diary_id, tag_id])
-  @@map("diary_tag")
 }

@@ -1,10 +1,5 @@
-import {
-  PrismaClient,
-  User,
-  Tag,
-  Diary,
-  DiaryTagRelation,
-} from '@prisma/client';
+import { PrismaClient, User, Tag, Diary } from '@prisma/client';
+import { CreateDiaryInput } from 'src/auth/dto/create-diary.input';
 const prisma = new PrismaClient();
 
 // モデル投入用のデータ定義
@@ -59,11 +54,11 @@ const diary_data: Diary[] = [
   },
 ];
 
-const diary_tag_relation_data: DiaryTagRelation[] = [
-  { diary_id: 1, tag_id: 1 },
-  { diary_id: 2, tag_id: 2 },
-  { diary_id: 3, tag_id: 3 },
-];
+// const diary_tag_relation_data: DiaryTagRelation[] = [
+//   { diary_id: 1, tag_id: 1 },
+//   { diary_id: 2, tag_id: 2 },
+//   { diary_id: 3, tag_id: 3 },
+// ];
 
 const seedingUser = async () => {
   const users = [];
@@ -91,23 +86,28 @@ const seedingDiary = async () => {
   const diaries = [];
   for (const diary of diary_data) {
     const create_diaries = prisma.diary.create({
-      data: diary,
+      data: {
+        ...diary,
+        tags: {
+          connect: [{ id: 1 }],
+        },
+      },
     });
     diaries.push(create_diaries);
   }
   return await prisma.$transaction(diaries);
 };
 
-const seedingRelationTagAndDiary = async () => {
-  const relations = [];
-  for (const relation of diary_tag_relation_data) {
-    const create_relations = prisma.diaryTagRelation.create({
-      data: relation,
-    });
-    relations.push(create_relations);
-  }
-  return await prisma.$transaction(relations);
-};
+// const seedingRelationTagAndDiary = async () => {
+//   const relations = [];
+//   for (const relation of diary_tag_relation_data) {
+//     const create_relations = prisma.diaryTagRelation.create({
+//       data: relation,
+//     });
+//     relations.push(create_relations);
+//   }
+//   return await prisma.$transaction(relations);
+// };
 
 const main = async () => {
   console.log(`Start seeding ...`);
@@ -124,9 +124,9 @@ const main = async () => {
   await seedingDiary();
   console.log('Seeding Diary finished.');
 
-  console.log('Seeding RelationDiaryAndTag...');
-  await seedingRelationTagAndDiary();
-  console.log('Seeding RelationDiaryAndTag finished.');
+  // console.log('Seeding RelationDiaryAndTag...');
+  // await seedingRelationTagAndDiary();
+  // console.log('Seeding RelationDiaryAndTag finished.');
 
   console.log(`Seeding finished.`);
 };
