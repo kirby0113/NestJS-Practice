@@ -6,15 +6,12 @@ ENV TZ=Asia/Tokyo
 RUN apk --no-cache add tzdata && \
     ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-WORKDIR /
+WORKDIR /app
 
 COPY package.json .
 COPY package-lock.json .
 COPY tsconfig.build.json ./
 COPY tsconfig.json ./
-RUN npm ci
-RUN ls ./usr -l
 
-EXPOSE 3000
+RUN ls ./ -l
 
-ENTRYPOINT [ "npm", "run", "build:deploy" ]
