@@ -35,7 +35,7 @@
     "heroku:push":"heroku container:push web",
     "heroku:release":"heroku container:release web",
     "heroku:log":"heroku logs --tail",
-    "build:deploy":"next start"
+    "build:deploy":"nest start"
   },
   "dependencies": {
     "@nestjs/cli": "^8.0.0",
