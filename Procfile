@@ -1,1 +1,1 @@
-web: npm run build:deploy
+web: npm run start:prod

@@ -10,7 +10,9 @@ WORKDIR /app
 
 COPY . .
 RUN npm ci
+RUN npm run build
+RUN ls -l
 
 EXPOSE 3000
 
-ENTRYPOINT [ "npm", "run", "build:deploy" ]
+ENTRYPOINT [ "npm", "run", "start:prod" ]
