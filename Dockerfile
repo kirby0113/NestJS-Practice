@@ -13,6 +13,7 @@ COPY package-lock.json .
 COPY tsconfig.build.json ./
 COPY tsconfig.json ./
 RUN npm ci
+RUN ls-l
 
 EXPOSE 3000
 
