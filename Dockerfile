@@ -12,6 +12,6 @@ COPY package.json .
 COPY package-lock.json .
 COPY tsconfig.build.json ./
 COPY tsconfig.json ./
-
+RUN npm ci
 RUN ls ./ -l
 
