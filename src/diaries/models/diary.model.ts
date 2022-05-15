@@ -1,5 +1,5 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
-import { Tag } from 'src/tags/models/tag.model';
+import { Tag } from '../../tags/models/tag.model';
 
 @ObjectType()
 export class Diary {

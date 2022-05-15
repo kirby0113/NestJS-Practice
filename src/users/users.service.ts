@@ -1,8 +1,4 @@
-import { UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-guard';
-import { PrismaService } from 'src/prisma.service';
-import { UserResolver } from './users.resolver';
-
+import { PrismaService } from '../prisma.service';
 export class UserService {
   constructor(private prisma: PrismaService) {}
 

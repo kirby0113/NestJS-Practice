@@ -1,13 +1,12 @@
 import { User } from '.prisma/client';
 import { UseGuards, Request, HttpException, HttpStatus } from '@nestjs/common';
 import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { title } from 'process';
-import { CreateDiaryInput } from 'src/auth/dto/create-diary.input';
-import { GetDiariesInput } from 'src/auth/dto/get-diaries.input';
-import { UpdateDiaryInput } from 'src/auth/dto/update-diary.input';
-import { CurrentUser, JwtAuthGuard } from 'src/auth/guards/jwt-guard';
-import { MessageResponse } from 'src/models/response.model';
-import { PrismaService } from 'src/prisma.service';
+import { CreateDiaryInput } from '../auth/dto/create-diary.input';
+import { GetDiariesInput } from '../auth/dto/get-diaries.input';
+import { UpdateDiaryInput } from '../auth/dto/update-diary.input';
+import { CurrentUser, JwtAuthGuard } from '../auth/guards/jwt-guard';
+import { MessageResponse } from '../models/response.model';
+import { PrismaService } from '../prisma.service';
 import { Diary } from './models/diary.model';
 
 @Resolver(() => Diary)

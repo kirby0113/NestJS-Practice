@@ -1,9 +1,9 @@
 import bcrypt = require('bcrypt');
 import { Injectable } from '@nestjs/common';
-import { User } from 'src/users/models/user.model';
+import { User } from '../users/models/user.model';
 import { JwtService } from '@nestjs/jwt';
-import { UserResolver } from 'src/users/users.resolver';
-import { PrismaService } from 'src/prisma.service';
+import { UserResolver } from '../users/users.resolver';
+import { PrismaService } from '../prisma.service';
 
 type PasswordOmitUser = Omit<User, 'password'>;
 

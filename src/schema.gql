@@ -4,9 +4,6 @@
 
 type User {
   id: ID!
-  name: String!
-  email: String!
-  password: String
 }
 
 type LoginResponse {
@@ -15,8 +12,6 @@ type LoginResponse {
 
 type Tag {
   id: ID!
-  name: String!
-  user_id: Float!
 }
 
 type MessageResponse {
@@ -25,16 +20,7 @@ type MessageResponse {
 
 type Diary {
   id: ID!
-  title: String!
-  detail: String!
-  created_at: DateTime!
-  tags: [Tag!]!
 }
-
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
 
 type Query {
   user: User!
@@ -45,8 +31,7 @@ type Query {
 }
 
 input GetDiariesInput {
-  tag_id: Float
-  order_asc: Boolean
+  tag_id: Float!
 }
 
 type Mutation {
@@ -69,18 +54,12 @@ input LoginUserInput {
 input CreateDiaryInput {
   title: ID!
   tags: [InputTag!]!
-  detail: String!
 }
 
 input InputTag {
   id: Float!
-  name: String
-  user_id: Float
 }
 
 input UpdateDiaryInput {
   tags: [InputTag!]!
-  id: Float!
-  title: String!
-  detail: String!
 }

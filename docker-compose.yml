@@ -1,20 +1,15 @@
 version: '3.7'
 services:
-  api:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: nest-practice
+  web:
+    build: .
+    container_name: nest-practice-api
     tty: true
-    stdin_open: true
-    volumes:
-      - .:/app
-      - /app/node_modules
-    depends_on:
-      - db
     ports:
       - '3000:3000'
-
+    volumes:
+      - type: bind
+        source: .
+        target: /app
   db:
     image: mysql:8.0.28
     container_name: nest-practice-db

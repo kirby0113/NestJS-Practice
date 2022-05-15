@@ -5,7 +5,6 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { JwtPayload } from './auth.service';
-import { User } from 'src/users/models/user.model';
 
 // JwtについているPayload情報の型
 interface JWTPayload {

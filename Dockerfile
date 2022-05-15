@@ -6,15 +6,16 @@ ENV TZ=Asia/Tokyo
 RUN apk --no-cache add tzdata && \
     ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-WORKDIR /
+WORKDIR /app
 
-COPY package.json .
-COPY package-lock.json .
-COPY tsconfig.build.json ./
-COPY tsconfig.json ./
-
+COPY package*.json ./
 RUN npm ci
+COPY prisma ./prisma
+RUN npm run prisma:generate
+
+COPY . ./
+RUN npm run build
 
 EXPOSE 3000
 
-ENTRYPOINT [ "npm", "run", "build:deploy" ]
+ENTRYPOINT [ "npm", "run", "start:prod" ]
