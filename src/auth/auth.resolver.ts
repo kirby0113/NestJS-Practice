@@ -2,11 +2,11 @@ import bcrypt = require('bcrypt');
 
 import { HttpException, HttpStatus, UseGuards } from '@nestjs/common';
 import { Resolver, Mutation, Args, Context } from '@nestjs/graphql';
-import { AuthService } from 'src/auth/auth.service';
-import { LoginResponse } from 'src/auth/dto/login-response';
-import { LoginUserInput } from 'src/auth/dto/login-user.input';
-import { GqlAuthGuard } from 'src/auth/guards/gql-auth.guard';
-import { PrismaService } from 'src/prisma.service';
+import { AuthService } from '../auth/auth.service';
+import { LoginResponse } from '../auth/dto/login-response';
+import { LoginUserInput } from '../auth/dto/login-user.input';
+import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
+import { PrismaService } from '../prisma.service';
 
 @Resolver()
 export class AuthResolver {

@@ -8,13 +8,13 @@ import { AuthService } from './auth.service';
 // Strategyクラス
 import { JwtStrategy } from './jwt.strategy';
 import { LocalStrategy } from './local.strategy';
-import { PrismaService } from 'src/prisma.service';
-import { UserResolver } from 'src/users/users.resolver';
+import { PrismaService } from '../prisma.service';
+import { UserResolver } from '../users/users.resolver';
 import { AuthResolver } from './auth.resolver';
-import { UserService } from 'src/users/users.service';
-import { TagResolver } from 'src/tags/tags.resolver';
-import { TagService } from 'src/tags/tags.service';
-import { DiaryResolver } from 'src/diaries/diaries.resolver';
+import { UserService } from '../users/users.service';
+import { TagResolver } from '../tags/tags.resolver';
+import { TagService } from '../tags/tags.service';
+import { DiaryResolver } from '../diaries/diaries.resolver';
 
 @Module({
   imports: [

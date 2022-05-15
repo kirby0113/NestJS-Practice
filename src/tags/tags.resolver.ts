@@ -1,11 +1,11 @@
 import { User } from '.prisma/client';
 import { UseGuards, Request, HttpException, HttpStatus } from '@nestjs/common';
 import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { CurrentUser, JwtAuthGuard } from 'src/auth/guards/jwt-guard';
-import { PrismaService } from 'src/prisma.service';
+import { CurrentUser, JwtAuthGuard } from '../auth/guards/jwt-guard';
+import { PrismaService } from '../prisma.service';
 import { Tag } from './models/tag.model';
 import { TagService } from './tags.service';
-import { MessageResponse } from 'src/models/response.model';
+import { MessageResponse } from '../models/response.model';
 
 @Resolver(() => Tag)
 export class TagResolver {

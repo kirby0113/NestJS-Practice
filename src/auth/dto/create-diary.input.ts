@@ -1,5 +1,5 @@
 import { Field, ID, InputType, ObjectType } from '@nestjs/graphql';
-import { InputTag } from 'src/tags/models/tag.model';
+import { InputTag } from '../../tags/models/tag.model';
 
 @InputType()
 export class CreateDiaryInput {
