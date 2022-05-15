@@ -8,11 +8,13 @@ RUN apk --no-cache add tzdata && \
 
 WORKDIR /app
 
-COPY . .
+COPY package*.json ./
 RUN npm ci
+COPY prisma ./prisma
+RUN npm run prisma:generate
+
+COPY . ./
 RUN npm run build
-RUN ls -l
-RUN npm run db:start
 
 EXPOSE 3000
 

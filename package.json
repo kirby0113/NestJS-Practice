@@ -13,7 +13,7 @@
   },
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "nest build",
+    "build": "tsc -p tsconfig.build.json",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "dotenv -e .env nest start",
     "start:dev": "dotenv -e .env nest start --watch",
@@ -27,6 +27,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "db:start": "chmod 775 ./docker/db/sql/init.sh && docker-compose --env-file ./.env -f ./docker-compose.yml up -d",
     "db:stop": "docker-compose --env-file ./.env -f ./docker-compose.yml stop",
+    "prisma:generate":"npx prisma generate",
     "prisma:migrate-dev": "dotenv -e ./.env prisma migrate dev",
     "prisma:reset": "dotenv -e ./env prisma migrate reset",
     "prisma:studio": "dotenv -e ./env prisma studio",

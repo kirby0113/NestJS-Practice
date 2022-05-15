@@ -1,5 +1,15 @@
 version: '3.7'
 services:
+  web:
+    build: .
+    container_name: nest-practice-api
+    tty: true
+    ports:
+      - '3000:3000'
+    volumes:
+      - type: bind
+        source: .
+        target: /app
   db:
     image: mysql:8.0.28
     container_name: nest-practice-db
