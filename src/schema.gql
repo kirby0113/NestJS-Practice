@@ -78,8 +78,8 @@ input InputTag {
 }
 
 input UpdateDiaryInput {
+  id: ID!
   tags: [InputTag!]!
-  id: Float!
   title: String!
   detail: String!
 }
