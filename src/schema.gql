@@ -45,7 +45,8 @@ type Query {
 }
 
 input GetDiariesInput {
-  tag_id: Float!
+  tag_id: Float
+  order_asc: Boolean
 }
 
 type Mutation {
@@ -67,8 +68,8 @@ input LoginUserInput {
 
 input CreateDiaryInput {
   title: ID!
-  tags: [InputTag!]!
   detail: String!
+  tags: [InputTag!]!
 }
 
 input InputTag {
@@ -79,7 +80,7 @@ input InputTag {
 
 input UpdateDiaryInput {
   id: ID!
-  tags: [InputTag!]!
   title: String!
   detail: String!
+  tags: [InputTag!]!
 }

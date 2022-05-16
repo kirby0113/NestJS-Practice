@@ -4,5 +4,6 @@ import { Field, ID, InputType, ObjectType } from '@nestjs/graphql';
 export class GetDiariesInput {
   @Field()
   tag_id?: number;
+  @Field()
   order_asc?: boolean;
 }

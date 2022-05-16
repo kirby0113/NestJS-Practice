@@ -5,7 +5,9 @@ import { InputTag } from '../../tags/models/tag.model';
 export class UpdateDiaryInput {
   @Field(() => ID)
   id: number;
+  @Field()
   title: string;
+  @Field()
   detail: string;
   @Field(() => [InputTag])
   tags: InputTag[];
