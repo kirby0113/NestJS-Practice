@@ -1,4 +1,4 @@
-import { Field, ID, InputType, ObjectType } from '@nestjs/graphql';
+import { Field, ID, InputType } from '@nestjs/graphql';
 import { InputTag } from '../../tags/models/tag.model';
 
 @InputType()
