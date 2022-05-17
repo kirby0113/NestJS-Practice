@@ -20,7 +20,7 @@ type Tag {
 }
 
 type MessageResponse {
-  message: String!
+  message: String
 }
 
 type Diary {
