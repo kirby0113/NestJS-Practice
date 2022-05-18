@@ -29,6 +29,7 @@
     "db:stop": "docker-compose --env-file ./.env -f ./docker-compose.yml stop",
     "prisma:generate":"npx prisma generate",
     "prisma:migrate-dev": "dotenv -e ./.env prisma migrate dev",
+    "prisma:migrate-deploy": "npx dotenv -e ./.env-production prisma migrate deploy",
     "prisma:reset": "dotenv -e ./env prisma migrate reset",
     "prisma:studio": "dotenv -e ./env prisma studio",
     "prisma:seeding": "dotenv -e ./env prisma db seed",

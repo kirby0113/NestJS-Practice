@@ -15,6 +15,7 @@ RUN npm run prisma:generate
 
 COPY . ./
 RUN npm run build
+RUN npm run prisma:migrate-deploy
 
 EXPOSE 3000
 
