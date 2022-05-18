@@ -20,7 +20,7 @@ type Tag {
 }
 
 type MessageResponse {
-  message: String!
+  message: String
 }
 
 type Diary {
@@ -45,12 +45,13 @@ type Query {
 }
 
 input GetDiariesInput {
-  tag_id: Float!
+  tag_id: Float
+  order_asc: Boolean
 }
 
 type Mutation {
   login(loginUserInput: LoginUserInput!): LoginResponse!
-  register(name: String!, email: String!, password: String!): LoginResponse!
+  register(registerUserInput: RegisterUserInput!): LoginResponse!
   createUser(name: String!, email: String!, password: String!): User!
   createTag(name: String!): Tag!
   updateTag(id: Float!, name: String!): Tag!
@@ -65,10 +66,16 @@ input LoginUserInput {
   password: String!
 }
 
+input RegisterUserInput {
+  name: String!
+  email: String!
+  password: String!
+}
+
 input CreateDiaryInput {
   title: ID!
-  tags: [InputTag!]!
   detail: String!
+  tags: [InputTag!]!
 }
 
 input InputTag {
@@ -79,7 +86,7 @@ input InputTag {
 
 input UpdateDiaryInput {
   id: ID!
-  tags: [InputTag!]!
   title: String!
   detail: String!
+  tags: [InputTag!]!
 }
